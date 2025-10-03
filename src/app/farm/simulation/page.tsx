@@ -5,9 +5,7 @@ import { useState } from "react";
 import Topbar from "../../../components/Topbar";
 
 // Dynamically import FarmScene to disable SSR
-const FarmScene = dynamic(() => import("../../../components/FarmScene"), {
-  ssr: false,
-});
+const FarmScene = dynamic(() => import("../../../components/FarmScene"), { ssr: false });
 
 export default function SimulationPage() {
   const [lat, setLat] = useState(36.5);

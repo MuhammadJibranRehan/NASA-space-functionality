@@ -1,4 +1,3 @@
-// src/app/page.tsx
 "use client";
 import Link from "next/link";
 import DataWidget from "../components/DataWidget";
@@ -28,9 +27,9 @@ export default function HomePage() {
           </motion.div>
 
           <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.2}} className="bg-slate-800 p-4 rounded">
-            <h3 className="font-semibold">Quick Simulation</h3>
-            <p className="text-sm text-slate-300 mb-3">Open the full 3D simulation for controls and richer interactions.</p>
-            <Link href="/farm/simulation" className="px-4 py-2 bg-emerald-600 rounded">Open Simulation</Link>
+            <h3 className="font-semibold">Farm Dashboard</h3>
+            <p className="text-sm text-slate-300 mb-3">Open the full farm dashboard for all modules.</p>
+            <Link href="/farm" className="px-4 py-2 bg-emerald-600 rounded">Open Dashboard</Link>
           </motion.div>
         </section>
 

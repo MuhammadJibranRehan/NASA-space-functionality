@@ -5,13 +5,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Stats } from "@react-three/drei";
 import * as THREE from "three";
 
-export default function FarmScene({
-  lat = 36.5,
-  lon = -98.0,
-}: {
-  lat?: number;
-  lon?: number;
-}) {
+export default function FarmScene({ lat = 36.5, lon = -98.0 }: { lat?: number; lon?: number }) {
   return (
     <div className="w-full h-full">
       <Canvas shadows camera={{ position: [0, 12, 18], fov: 50 }} gl={{ antialias: true }}>
@@ -59,7 +53,6 @@ function Plants({ lat, lon }: { lat: number; lon: number }) {
   const positions = useRef<Float32Array>(new Float32Array(COUNT * 3));
   const [moistureFactor, setMoistureFactor] = useState(0.5);
 
-  // Initialize plant positions
   useEffect(() => {
     for (let i = 0; i < COUNT; i++) {
       positions.current[i * 3 + 0] = (Math.random() - 0.5) * 40;
@@ -68,7 +61,6 @@ function Plants({ lat, lon }: { lat: number; lon: number }) {
     }
   }, []);
 
-  // Poll NASA metrics API
   useEffect(() => {
     let mounted = true;
 
@@ -86,15 +78,14 @@ function Plants({ lat, lon }: { lat: number; lon: number }) {
     }
 
     poll();
-    const id = setInterval(poll, 5000); // poll every 5s
+    const id = setInterval(poll, 5000);
     return () => {
       mounted = false;
       clearInterval(id);
     };
   }, [lat, lon]);
 
-  // Animate sway + growth
-  useFrame(({ clock }) => {
+  useFrame(({ clock }: { clock: THREE.Clock }) => {
     if (!meshRef.current) return;
     const t = clock.getElapsedTime();
 
