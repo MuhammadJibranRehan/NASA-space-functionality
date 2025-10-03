@@ -1,16 +1,49 @@
-import Topbar from "../../../components/Topbar"
-import ChallengeCard from "../../../components/ChallengeCard"
+"use client";
 
-export default function FarmChallenges() {
+import { useState, useEffect } from "react";
+import Topbar from "../../../components/Topbar";
+
+type Challenge = {
+  id: number;
+  title: string;
+  description: string;
+  completed: boolean;
+};
+
+export default function ChallengesPage() {
+  const [challenges, setChallenges] = useState<Challenge[]>([]);
+
+  useEffect(() => {
+    // Simulate fetching challenges
+    setChallenges([
+      { id: 1, title: "Plant 10 seeds", description: "Grow 10 new plants.", completed: false },
+      { id: 2, title: "Irrigate field", description: "Water your farm once.", completed: false },
+      { id: 3, title: "Check soil moisture", description: "Ensure soil is healthy.", completed: true },
+    ]);
+  }, []);
+
+  const toggleComplete = (id: number) => {
+    setChallenges((prev) =>
+      prev.map((c) => (c.id === id ? { ...c, completed: !c.completed } : c))
+    );
+  };
+
   return (
-    <>
-      <Topbar title="Challenges" />
-      <div className="p-6 grid grid-cols-2 gap-4">
-        <ChallengeCard title="Water Crisis" color="bg-red-700" emoji="💧" />
-        <ChallengeCard title="Market Collapse" color="bg-yellow-700" emoji="📉" />
-        <ChallengeCard title="Pest Outbreak" color="bg-green-700" emoji="🐛" />
-        <ChallengeCard title="Climate Event" color="bg-blue-700" emoji="🌪" />
+    <div className="min-h-screen flex flex-col">
+      <Topbar title="Farm Challenges" />
+      <div className="p-4 grid gap-4">
+        {challenges.map((c) => (
+          <div
+            key={c.id}
+            className={`p-4 rounded ${c.completed ? "bg-green-600" : "bg-slate-800"} text-white cursor-pointer`}
+            onClick={() => toggleComplete(c.id)}
+          >
+            <h3 className="font-bold">{c.title}</h3>
+            <p>{c.description}</p>
+            <p>Status: {c.completed ? "Completed" : "Pending"}</p>
+          </div>
+        ))}
       </div>
-    </>
-  )
+    </div>
+  );
 }
